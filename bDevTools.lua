@@ -215,11 +215,13 @@ local c_SlashCommands = {
                 end
 
                 Debug.Divider("=")
+
             elseif (args[2] == "list") then
                 Debug.Log("======== EVENT LIST ==============================")
                 Notification("The list of subscribed UI events has been printed to console")
                 Debug.Table("g_SubscribedEvents", g_SubscribedEvents)
                 Debug.Divider("=")
+
             elseif (args[2] == "bind") then
                 if (args[3]) then
                     Debug.Log("======== EVENT BIND ==============================")
@@ -228,9 +230,11 @@ local c_SlashCommands = {
                     Debug.Divider("=")
 
                     g_SubscribedEvents[unicode.upper(args[3])] = true
+
                 else
                     Notification("Usage: /bdt event bind <event>")
                 end
+
             elseif (args[2] == "unbind") then
                 if (args[3]) then
                     Debug.Log("======== EVENT UNBIND ============================")
@@ -239,12 +243,15 @@ local c_SlashCommands = {
                     Debug.Divider("=")
 
                     g_SubscribedEvents[unicode.upper(args[3])] = nil
+
                 else
                     Notification("Usage: /bdt event unbind <event>")
                 end
+
             else
                 Notification("Usage: /bdt event <list | bind | unbind>")
             end
+
         else
             Notification("Usage: /bdt event <list | bind | unbind>")
         end
@@ -287,6 +294,7 @@ local c_SlashCommands = {
                                     elseif (c_Battleframes[unicode.upper(value)]) then
                                         searchParameters[parameter] = c_Battleframes[unicode.upper(value)]
                                     end
+
                                 else
                                     searchParameters[parameter] = value
                                 end
@@ -315,23 +323,28 @@ local c_SlashCommands = {
                     Debug.Log("======== ITEM FIND ===============================")
                     Debug.Table("FindItems()", searchId)
                     Debug.Divider("=")
+
                 else
                     Notification("Usage: /bdt item find <match_string> [match_description=0 | item_subtype=0 | item_type=any | max_level=50 | max_quality=legendary | min_level=1 | min_quality=salvage]")
                 end
+
             elseif (args[2] == "info") then
                 if (args[3] and unicode.match(args[3], "^%d+$")) then
                     Debug.Log("======== ITEM INFO ===============================")
 
                     if (unicode.len(args[3]) > 16) then
                         Debug.Table("Player.GetItemInfo()", Player.GetItemInfo(args[3]))
+
                     else
                         Debug.Table("Game.GetItemInfoByType()", Game.GetItemInfoByType(args[3]))
                     end
 
                     Debug.Divider("=")
+
                 else
                     Notification("Usage: /bdt item info <itemTypeId | itemId>")
                 end
+
             elseif (args[2] == "link") then
                 if (args[3] and unicode.match(args[3], "^%d+")) then
                     if (Game.GetItemInfoByType(unicode.match(args[3], "^%d+")).itemTypeId ~= nil) then
@@ -353,12 +366,15 @@ local c_SlashCommands = {
                         end
 
                         Notification(ChatLib.EncodeItemLink(unicode.match(args[3], "^%d+"), moduleData.hiddenModules, moduleData.slottedModules))
+
                     else
                         Notification("Item with itemTypeId " .. unicode.match(args[3], "^%d+") .. " was not found")
                     end
+
                 else
                     Notification("Usage: /bdt item link <itemTypeId> [hiddenModules=itemTypeId[:itemTypeId..] | slottedModules=itemTypeId[:itemTypeId..]]")
                 end
+
             elseif (args[2] == "search") then
                 if (args[3]) then
                     local searchParameters = {
@@ -391,6 +407,7 @@ local c_SlashCommands = {
                                     elseif (c_Battleframes[unicode.upper(value)]) then
                                         searchParameters[parameter] = c_Battleframes[unicode.upper(value)]
                                     end
+
                                 else
                                     searchParameters[parameter] = value
                                 end
@@ -408,12 +425,15 @@ local c_SlashCommands = {
                     Debug.Log("======== ITEM SEARCH =============================")
                     Debug.Table("Game.StartItemSearch()", searchId)
                     Debug.Divider("=")
+
                 else
                     Notification("Usage: /bdt item search <match_string> [item_subtype=0 | item_type=any | max_level=50 | max_quality=legendary | min_level=1 | min_quality=salvage]")
                 end
+
             else
                 Notification("Usage: /bdt item <find | info | link | search>")
             end
+
         else
             Notification("Usage: /bdt item <find | info | link | search>")
         end
@@ -429,20 +449,25 @@ local c_SlashCommands = {
                     Debug.Log("======== ABILITY INFO ============================")
                     Debug.Table("Player.GetAbilityInfo()", Player.GetAbilityInfo(args[3]))
                     Debug.Divider("=")
+
                 else
                     Notification("Usage: /bdt ability info <abilityId>")
                 end
+
             elseif (args[2] == "state") then
                 if (args[3] and unicode.match(args[3], "^%d+$")) then
                     Debug.Log("======== ABILITY STATE ===========================")
                     Debug.Table("Player.GetAbilityState()", Player.GetAbilityState(args[3]))
                     Debug.Divider("=")
+
                 else
                     Notification("Usage: /bdt ability state <abilityId>")
                 end
+
             else
                 Notification("Usage: /bdt ability <info | state>")
             end
+
         else
             Notification("Usage: /bdt ability <info | state>")
         end
@@ -460,24 +485,30 @@ local c_SlashCommands = {
 
                         if (args[4] and unicode.match(args[4], "^%d+$")) then
                             Debug.Table("Player.GetLoadoutInfoByID()", Player.GetLoadoutInfoByID(args[4]))
+
                         else
                             Debug.Table("Player.GetCurrentLoadout()", Player.GetCurrentLoadout())
                         end
 
                         Debug.Divider("=")
+
                     elseif (args[3] == "list") then
                         Debug.Log("======== LOADOUT LIST ============================")
                         Debug.Table("Player.GetLoadoutList()", Player.GetLoadoutList())
                         Debug.Divider("=")
+
                     else
                         Notification("Usage: /bdt player loadout <get|list>")
                     end
+
                 else
                     Notification("Usage: /bdt player loadout <get|list>")
                 end
+
             else
                 Notification("Usage: /bdt player <loadout>")
             end
+
         else
             Notification("Usage: /bdt player <loadout>")
         end
@@ -493,14 +524,17 @@ local c_SlashCommands = {
 
                 if (args[3] and unicode.match(args[3], "^%d+$")) then
                     Debug.Table("Game.GetZoneInfo()", Game.GetZoneInfo(tonumber(args[3])))
+
                 else
                     Debug.Table("Game.GetZoneInfo()", Game.GetZoneInfo(Game.GetZoneId()))
                 end
 
                 Debug.Divider("=")
+
             else
                 Notification("Usage: /bdt zone <info>")
             end
+
         else
             Notification("/bdt zone <info>")
         end
@@ -515,26 +549,32 @@ local c_SlashCommands = {
                 Debug.Log("======== JOB CANCEL ==============================")
 
                 local jobStatus = Player.GetJobStatus()
+
                 if (jobStatus and jobStatus.job and jobStatus.job.arc_id) then
                     Debug.Table("Game.RequestCancelArc()", Game.RequestCancelArc(jobStatus.job.arc_id))
                 end
 
                 Debug.Divider("=")
+
             elseif (args[2] == "start") then
                 if (args[3] and unicode.match(args[3], "^%d+$")) then
                     Debug.Log("======== JOB START ===============================")
                     Debug.Table("Game.RequestStartArc()", Game.RequestStartArc(tonumber(args[3])))
                     Debug.Divider("=")
+
                 else
                     Notification("Usage: /bdt job start <arc_id>")
                 end
+
             elseif (args[2] == "status") then
                 Debug.Log("======== JOB STATUS ==============================")
                 Debug.Table("Player.GetJobStatus()", Player.GetJobStatus())
                 Debug.Divider("=")
+
             else
                 Notification("Usage: /bdt job <cancel | start | status>")
             end
+
         else
             Notification("Usage: /bdt job <cancel | start | status>")
         end
@@ -550,14 +590,17 @@ local c_SlashCommands = {
                     Debug.Log("======== MISSION CANCEL ==========================")
                     Debug.Table("Player.AbortCampaignMission()", Player.AbortCampaignMission(tonumber(args[3])))
                     Debug.Divider("=")
+
                 else
                     Notification("Usage: /bdt mission cancel <mission_id>")
                 end
+
             elseif (args[2] == "dump") then
                 Debug.Log("======== MISSION DUMP ============================")
 
                 for missionId = 1, 250000 do
                     local missionInfo = Player.GetMissionInfo(missionId)
+
                     if (missionInfo) then
                         Debug.Log(tostring(missionId) ..  ": " .. tostring(missionInfo.name) .. " [" .. tostring(missionInfo.status) .. "]")
                         Debug.Log("\tDescription:", tostring(missionInfo.description))
@@ -571,20 +614,25 @@ local c_SlashCommands = {
                     Debug.Log("======== MISSION INFO ============================")
                     Debug.Table("Player.GetMissionInfo()", Player.GetMissionInfo(tonumber(args[3])))
                     Debug.Divider("=")
+
                 else
                     Notification("Usage: /bdt mission info <mission_id>")
                 end
+
             elseif (args[2] == "start") then
                 if (args[3] and unicode.match(args[3], "^%d+$")) then
                     Debug.Log("======== MISSION START ===========================")
                     Debug.Table("ActivityDirector.RequestMission()", ActivityDirector.RequestMission(tonumber(args[3])))
                     Debug.Divider("=")
+
                 else
                     Notification("Usage: /bdt mission start <mission_id>")
                 end
+
             else
                 Notification("Usage: /bdt mission <cancel | dump | info | start>")
             end
+
         else
             Notification("Usage: /bdt mission <cancel | dump | info | start>")
         end
@@ -609,9 +657,11 @@ local c_SlashCommands = {
                                 vec3            = Vec3.Distance(playerTargetBounds, targetBounds)
                         })
                         Debug.Divider("=")
+
                     else
                         Notification("No info for entity " .. tostring(args[3]) .. " found")
                     end
+
                 else
                     local reticleInfo = Player.GetReticleInfo()
 
@@ -626,13 +676,16 @@ local c_SlashCommands = {
                                 vec3            = Vec3.Distance(playerTargetBounds, targetBounds)
                             })
                             Debug.Divider("=")
+
                         else
                             Notification("No entity at reticle found")
                         end
+
                     else
                         Notification("No entity at reticle found")
                     end
                 end
+
             elseif (args[2] == "info") then
                 if (args[3] and unicode.match(args[3], "^%d+$")) then
                     local targetInfo = Game.GetTargetInfo(args[3])
@@ -641,9 +694,11 @@ local c_SlashCommands = {
                         Debug.Log("======== ENTITY INFO =============================")
                         Debug.Table("targetInfo", targetInfo)
                         Debug.Divider("=")
+
                     else
                         Notification("No info for entity " .. tostring(args[3]) .. " found")
                     end
+
                 else
                     local reticleInfo = Player.GetReticleInfo()
 
@@ -654,22 +709,27 @@ local c_SlashCommands = {
                             Debug.Log("======== ENTITY INFO =============================")
                             Debug.Table("targetInfo", targetInfo)
                             Debug.Divider("=")
+
                         else
                             Notification("No entity at reticle found")
                         end
+
                     else
                         Notification("No entity at reticle found")
                     end
                 end
+
             elseif (args[2] == "interact") then
                 if (args[3] and unicode.match(args[3], "%d+")) then
                     if (Game.IsTargetAvailable(unicode.match(args[3], "^%d+$"))) then
                         Debug.Log("======== ENTITY INTERACT =========================")
                         Debug.Table("Player.BeginInteraction()", Player.BeginInteraction(args[3]))
                         Debug.Divider("=")
+
                     else
                         Notification("Entity " .. tostring(args[3]) .. " is not available")
                     end
+
                 else
                     local reticleInfo = Player.GetReticleInfo()
 
@@ -677,10 +737,12 @@ local c_SlashCommands = {
                         Debug.Log("======== ENTITY INTERACT =========================")
                         Debug.Table("Player.BeginInteraction()", Player.BeginInteraction(reticleInfo.entityId))
                         Debug.Divider("=")
+
                     else
                         Notification("No entity to interact with")
                     end
                 end
+
             elseif (args[2] == "list") then
                 local availableTargets = Game.GetAvailableTargets()
                 local entityCount = 0
@@ -711,6 +773,7 @@ local c_SlashCommands = {
 
                                     entityCount = entityCount + 1
                                 end
+
                             else
                                 Debug.Warn("No targetInfo or targetInfo.type:", entityId)
                             end
@@ -739,6 +802,7 @@ local c_SlashCommands = {
                                     entityList[targetType][entityId].deployableTypeId   = targetInfo.deployableTypeId
 
                                     entityCount = entityCount + 1
+
                                 else
                                     if (not entityList.unknown) then
                                         entityList.unknown = {}
@@ -750,6 +814,7 @@ local c_SlashCommands = {
 
                                     entityCount = entityCount + 1
                                 end
+
                             else
                                 Debug.Warn("No targetInfo:", entityId)
                             end
@@ -813,6 +878,7 @@ local c_SlashCommands = {
             else
                 Notification("Usage: /bdt entity <bounds | interact | info | list | mark>")
             end
+
         else
             Notification("Usage: /bdt entity <bounds | interact | info | list | mark>")
         end
@@ -842,7 +908,7 @@ local c_SlashCommands = {
                         if (saveCard) then
                             Component.SaveSetting("tutorialCard_" .. unicode.format("%06i", i), cardData)
                         end
-                     end
+                    end
                 end
 
             else
@@ -921,12 +987,13 @@ local c_SlashCommands = {
             }
             local value = data.current_value
 
-            if data.is_scalar then
+            if (data.is_scalar) then
                 value = value * 100
             end
 
             if (t_stats[data.stat_id]) then
                 t_stats[data.stat_id].value = t_stats[data.stat_id].value + value
+
             else
                 t_stats[data.stat_id] = {desc = data.designer_name, value = value}
             end
@@ -948,10 +1015,11 @@ local c_SlashCommands = {
                 value = value * 100
             end
 
-            if t_stats[data.stat_id] then
+            if (t_stats[data.stat_id]) then
                 t_stats[data.stat_id].value = t_stats[data.stat_id].value + value
+
             else
-                t_stats[data.stat_id]={desc = data.designer_name, value = value}
+                t_stats[data.stat_id] = {desc = data.designer_name, value = value}
             end
 
             fmt = "%5s %s: " .. data.localized_format_specifier
@@ -968,11 +1036,7 @@ local c_SlashCommands = {
                 local fmt = "%5s - %s: " .. info.format
                 local value
 
-                if (tonumber(info.stat_id) ~= 22) then
-                    value = Player.GetAttribute(tonumber(info.stat_id), 1)
-                else
-                    value = info.value
-                end
+                value = ((tonumber(info.stat_id) ~= 22) and Player.GetAttribute(info.stat_id, 1) or info.value)
 
                 Debug.Log(unicode.format(fmt, info.stat_id, info.dev_name, value))
             end
@@ -987,11 +1051,7 @@ local c_SlashCommands = {
                 local fmt = "%5s - %s: " .. info.format
                 local value
 
-                if (tonumber(info.stat_id) ~= 22) then
-                    value = Player.GetAttribute(tonumber(info.stat_id), 2)
-                else
-                    value = info.value
-                end
+                value = ((tonumber(info.stat_id) ~= 22) and Player.GetAttribute(info.stat_id, 2) or info.value)
 
                 Debug.Log(unicode.format(fmt, info.stat_id, info.dev_name, value))
             end
@@ -1078,10 +1138,12 @@ function BuildItemDatabase()
         end
     end
 
-    -- Debug.Log("Sending item database to localhost")
-    -- if (not HTTP.IsRequestPending("http://localhost:38080/")) then
-        -- HTTP.IssueRequest("http://localhost:38080/", "POST", itemDatabase, nil)
-    -- end
+    --[[
+    Debug.Log("Sending item database to localhost")
+    if (not HTTP.IsRequestPending("http://localhost:38080/")) then
+        HTTP.IssueRequest("http://localhost:38080/", "POST", itemDatabase, nil)
+    end
+    -- ]]
 end
 
 function FindItems(args)
