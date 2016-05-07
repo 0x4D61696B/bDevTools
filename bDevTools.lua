@@ -1501,6 +1501,18 @@ function SleepGlitch()
     end
 end
 
+function SquadApply(args)
+    if (Squad.IsInSquad() or Platoon.IsInPlatoon()) then
+        Notification("You're already in a group")
+
+    elseif (args[1]) then
+        Squad.ApplyToGroup(args[1], args[2])
+
+    else
+        Notification("You have to supply a name")
+    end
+end
+
 function OnEvent(args)
     Debug.Event(args)
 end
@@ -1548,6 +1560,13 @@ function OnComponentLoad()
         slash_list = "fixbounties",
         description = "bDevTools: Try to cancel stuck bounties",
         func = FixBounties
+    })
+
+    LIB_SLASH.BindCallback({
+        slash_list = "sapply",
+        description = "bDevTools: Apply from/to squad",
+        func = SquadApply,
+        autocomplete_name = 1
     })
 
     for k, v in pairs(c_TextEmotes) do
