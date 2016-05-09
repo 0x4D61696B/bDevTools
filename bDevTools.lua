@@ -885,7 +885,58 @@ local c_SlashCommands = {
     end,
 
     -- =============================================================================
-    --  Codices
+    --  MARKER
+    -- =============================================================================
+    marker = function(args)
+        if (args[2]) then
+            if (args[2] == "info") then
+                if (args[3] and unicode.match(args[3], "%d+")) then
+                    local mapMarkerInfo = Game.GetMapMarkerInfo(args[3])
+
+                    if (mapMarkerInfo) then
+                        Debug.Table("mapMarkerInfo", mapMarkerInfo)
+
+                    else
+                        Notification("No map marker info found for " .. tostring(args[3]))
+                    end
+
+                else
+                    Notification("Usage: /bdt marker info <markerId>")
+                end
+
+            elseif (args[2] == "list") then
+                local mapMarkerList = Game.GetMapMarkerList()
+                local list          = {}
+
+                for i = 1, #mapMarkerList do
+                    local mapMarkerInfo = Game.GetMapMarkerInfo(mapMarkerList[i].markerId)
+                    list[tostring(mapMarkerList[i].markerId)] = {
+                        markerType  = mapMarkerInfo.markerType,
+                        Description = ((mapMarkerInfo.Description and unicode.len(mapMarkerInfo.Description) > 0) and mapMarkerInfo.Description or nil),
+                        ToolTip     = ((mapMarkerInfo.ToolTip and unicode.len(mapMarkerInfo.ToolTip) > 0) and mapMarkerInfo.ToolTip or nil),
+                        pos         = {
+                            x       = mapMarkerInfo.x,
+                            y       = mapMarkerInfo.y,
+                            z       = mapMarkerInfo.z
+                        }
+                    }
+                end
+
+                Debug.Table("mapMarkerList", list)
+
+            else
+                Notification("Usage: /bdt marker <info | list>")
+            end
+
+        else
+            Notification("Usage: /bdt marker <info | list>")
+        end
+
+    end,
+
+
+    -- =============================================================================
+    --  CODICES
     -- =============================================================================
     codex = function(args)
         if (args[2]) then
